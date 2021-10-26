@@ -10,7 +10,7 @@ node {
       
       stage('test image') {         
        
-            bat 'echo "dummy test passed!"'    
+               
        }   
       
       stage('Build image') {         
