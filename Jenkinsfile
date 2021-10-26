@@ -3,7 +3,7 @@ node{
                echo 'Testingg'
             }
         stage('mvn packages'){
-                sh 'mvn clean package'
+                echo 'packaging'
         }
       
         
