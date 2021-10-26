@@ -1,15 +1,28 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim' 
-            args '-p 3000:3000' 
+node {   
+
+      def app     
+      
+ 
+      stage('Clone repository') {               
+             
+            checkout scm    
+      }
+      
+      stage('test image') {         
+       
+            bat 'echo "dummy test passed!"'    
+       }   
+      
+      stage('Build image') {         
+       
+            app = docker.build("samsharan/built-by-jenkins")    
+       }   
+      
+
+       stage('Push image') {
+                                                  docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {            
+       app.push("${env.BUILD_NUMBER}")            
+       app.push("latest")        
+              }    
+           }
         }
-    }
-    stages {
-        stage('Build') { 
-            steps {
-                sh 'npm install' 
-            }
-        }
-    }
-}
